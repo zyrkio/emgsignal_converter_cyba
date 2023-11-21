@@ -1,5 +1,6 @@
 {
     "name": "emgsignal_converter_cyba",
+    "version": "0.0.1",
     "description": "",
     "dependencies": {
         "core": "*",
