@@ -5,7 +5,10 @@
 
 ### ``plotAt``
 ``` blocks
+
+
 basic.forever(function () {
+    radio.setGroup(1);
     // Setze den EMG-Wert auf das analoge Lesen des Pins P0
     let EMG_value = pins.analogReadPin(AnalogPin.P0);
 
@@ -15,9 +18,46 @@ basic.forever(function () {
     // Schreibe den Wert "processed" über die Serielle Schnittstelle
     serial.writeValue("processed", extension.block(EMG_value));
 
+    // Sende den EMG-Wert über den Radio-Block
+    radio.sendNumber(extension.block(EMG_value));
+
     // Pause für 100 Millisekunden
     basic.pause(100);
 });
+
+
+```
+
+### ``useCar``
+Using Blocks with the maqueenPlusV2 Kitronic Version with a second microbit
+
+These blocks are designed for users utilizing the maqueenPlusV2 Kitronic version, accessible under the extensions section.
+
+* Adjusting Parameters: Users can modify the 'received Number' parameter as needed.
+* Serial Write Value: This feature allows users to print and display the received signal.
+* Stable Signal Analysis: If a stable signal waveform is observed, analyze it. Adjust the values to clearly detect muscle flexing.
+* Signal Fluctuations: If the signal fluctuates rapidly from a high value to zero, it indicates misalignment or instability in the EMG patches. Check for dirt, ensure proper placement, and stabilize the patches.
+
+These blocks are versatile for signal analysis and can be adjusted according to the requirements of the muscle flex detection. 
+Adjust parameters and observe serial outputs for signal analysis and troubleshooting.
+
+
+
+``` blocks
+
+radio.onReceivedNumber(function (receivedNumber) {
+    if (receivedNumber > 0.025) {
+        maqueenPlusV2.controlMotor(maqueenPlusV2.MyEnumMotor.AllMotor, maqueenPlusV2.MyEnumDir.Forward, 60)
+    } else {
+        maqueenPlusV2.controlMotorStop(maqueenPlusV2.MyEnumMotor.AllMotor)
+    }
+    serial.writeValue("x", receivedNumber)
+})
+
+basic.forever(function () {
+    radio.setGroup(1)
+})
+
 
 ```
 
