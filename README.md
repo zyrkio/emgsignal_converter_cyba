@@ -3,6 +3,24 @@
 
 ## Use as Extension
 
+### ``plotAt``
+``` blocks
+basic.forever(function () {
+    // Setze den EMG-Wert auf das analoge Lesen des Pins P0
+    let EMG_value = pins.analogReadPin(AnalogPin.P0);
+
+    // Schreibe den Wert "emg signal" über die Serielle Schnittstelle
+    serial.writeValue("emg signal", EMG_value);
+
+    // Schreibe den Wert "processed" über die Serielle Schnittstelle
+    serial.writeValue("processed", extension.block(EMG_value));
+
+    // Pause für 100 Millisekunden
+    basic.pause(100);
+});
+
+```
+
 This repository can be added as an **extension** in MakeCode.
 
 * open [https://makecode.microbit.org/](https://makecode.microbit.org/)
