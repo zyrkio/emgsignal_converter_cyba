@@ -38,7 +38,10 @@ namespace EMGConversion {
         }
         let rmsValue = Math.sqrt(sumSquared / signalBuffer.length)*10;
 
-        return rmsValue;
-        //sdsds
+        if (rmsValue < 0) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
 }
