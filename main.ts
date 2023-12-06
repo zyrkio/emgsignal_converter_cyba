@@ -36,7 +36,7 @@ namespace EMGConversion {
         for (let i = 0; i < signalBuffer.length; i++) {
             sumSquared += signalBuffer[i] ** 2;
         }
-        let rmsValue = Math.sqrt(sumSquared / signalBuffer.length)*10;
+        let rmsValue = Math.sqrt(sumSquared / signalBuffer.length);
 
         return rmsValue;
     }
