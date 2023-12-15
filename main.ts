@@ -2,7 +2,8 @@ namespace EMGConversion {
     let filteredValue = 0;
     let windowSize = 5; // Fenstergröße für RMS
     let signalBuffer: number[] = [];
-
+    let maxRMS = -Infinity;
+    let minRMS = Infinity;
     /**
      * Konvertiert, filtert, gleicht aus und berechnet das RMS des EMG-Signals
      * @param signal, beschreibe den Parameter hier
@@ -37,7 +38,29 @@ namespace EMGConversion {
             sumSquared += signalBuffer[i] ** 2;
         }
         let rmsValue = Math.sqrt(sumSquared / signalBuffer.length);
+        let result = EMGConversion.thresholdCalculate(rmsValue);
+        "call funktion um threshold zu berechnen"
+        " if caluse und threshold wert benutzen falls höher dann 1 falls darunter dann 0"
 
-        return rmsValue;
+        if (rmsValue > result) {
+            return 1; // Rückgabe 1, wenn der RMS-Wert den Schwellenwert überschreitet
+        } else {
+            return 0; // Rückgabe 0, wenn der RMS-Wert den Schwellenwert unterschreitet
+        }
     }
+    export function thresholdCalculate(threshold: number): number {
+        // Aktualisiere den maximalen und minimalen Wert
+        if (threshold > maxRMS) {
+            maxRMS = threshold;
+        }
+        if (threshold < minRMS) {
+            minRMS = threshold;
+        }
+
+        // Berechne den Durchschnitt aus dem maximalen und minimalen Wert
+        const averageThreshold = (maxRMS + minRMS) / 2;
+
+        return averageThreshold;
+    }
+     
 }
