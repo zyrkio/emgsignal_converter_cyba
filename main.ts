@@ -7,7 +7,7 @@ namespace EMGConversion {
      * Konvertiert, filtert, gleicht aus und berechnet das RMS des EMG-Signals
      * @param signal, beschreibe den Parameter hier
      */
-    //% block="Konvertiere, filtere, gleiche aus und berechne RMS des EMG-Signal $signal"
+    //% block="Filtere RAW Signal $signal"
     //% signal.min=0 signal.max=1023
     export function convertFilterRectifyAndCalculateRMS(signal: number): number {
         const operatingVoltage = 3.3;
