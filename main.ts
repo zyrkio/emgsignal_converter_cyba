@@ -15,7 +15,7 @@ namespace EMGConversion {
         const alpha = 0.01; // Filterkonstante für den Tiefpassfilter
 
         // Konvertierung in Millivolt
-        signal = (signal / 1024 - 0.5) * operatingVoltage / sensorGain * 1000;
+        signal = (signal / 1024 - 0.5) * operatingVoltage / sensorGain ;
 
         // Anwendung des Tiefpassfilters
         filteredValue = alpha * signal + (1 - alpha) * filteredValue;
