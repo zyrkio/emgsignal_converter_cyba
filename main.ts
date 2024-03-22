@@ -12,10 +12,10 @@ namespace EMGConversion {
     export function convertFilterRectifyAndCalculateRMS(signal: number): number {
         const operatingVoltage = 3.3;
         const sensorGain = 1009;
-        const alpha = 1; // Filterkonstante für den Tiefpassfilter
+        const alpha = 0.1; // Filterkonstante für den Tiefpassfilter
 
         // Konvertierung in Millivolt
-        signal = (signal / 1024 - 0.5) * operatingVoltage / sensorGain *10000;
+        signal = (signal / 1024 - 0.5) * operatingVoltage / sensorGain *1000;
 
         // Anwendung des Tiefpassfilters
         filteredValue = alpha * signal + (1 - alpha) * filteredValue;
